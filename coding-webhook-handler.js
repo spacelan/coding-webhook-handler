@@ -56,6 +56,9 @@ function create(options) {
         return hasError(e)
       }
 
+      if(obj.token !== options.token)
+        return hasError('The token does not match')
+
       res.writeHead(200, {
         'content-type': 'application/json'
       })
