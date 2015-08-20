@@ -1,19 +1,19 @@
 {
-  "name": "github-webhook-handler",
+  "name": "coding-webhook-handler",
   "version": "0.5.0",
-  "description": "Web handler / middleware for processing GitHub Webhooks",
-  "main": "github-webhook-handler.js",
+  "description": "Web handler / middleware for processing Coding Webhooks",
+  "main": "coding-webhook-handler.js",
   "scripts": {
     "test": "node test.js"
   },
   "keywords": [
-    "github",
+    "coding",
     "webhooks"
   ],
-  "author": "Rod Vagg <r@va.gg> (http://r.va.gg)",
+  "author": "Rod Vagg <r@va.gg> (http://r.va.gg), spacelan",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rvagg/github-webhook-handler.git"
+    "url": "https://github.com/spacelan/coding-webhook-handler.git"
   },
   "license": "MIT",
   "dependencies": {
