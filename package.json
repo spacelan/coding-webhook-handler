@@ -1,6 +1,6 @@
 {
   "name": "coding-webhook-handler",
-  "version": "0.5.0",
+  "version": "0.6.1",
   "description": "Web handler / middleware for processing Coding Webhooks",
   "main": "coding-webhook-handler.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "coding",
     "webhook"
   ],
-  "author": "spacelan",
+  "author": "spacelan, rvagg",
   "repository": {
     "type": "git",
     "url": "https://github.com/spacelan/coding-webhook-handler.git"

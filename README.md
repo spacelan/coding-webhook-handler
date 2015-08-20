@@ -1,8 +1,14 @@
 # coding-webhook-handler
 
+[![Build Status](https://travis-ci.org/spacelan/coding-webhook-handler.svg)](https://travis-ci.org/spacelan/coding-webhook-handler)
+
 Coding allows you to register **[Webhooks](https://coding.net/help/about_us?key=webhook)** for your repositories. Each time an event occurs on your repository, whether it be pushing code, filling issues or creating pull requests, the webhook address you register can be configured to be pinged with details.
 
-This library a fork of [github-webhook-handler](https://github.com/rvagg/github-webhook-handler). It is a small handler (or "middleware" if you must) for Node.js web servers that handles all the logic of receiving and verifying webhook requests from Coding.
+This library is a fork of [github-webhook-handler](https://github.com/rvagg/github-webhook-handler). It is a small handler (or "middleware" if you must) for Node.js web servers that handles all the logic of receiving and verifying webhook requests from Coding.
+
+## Install
+
+`npm install coding-webhook-handler`
 
 ## Example
 
