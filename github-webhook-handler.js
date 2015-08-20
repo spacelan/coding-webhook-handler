@@ -1,38 +1,32 @@
-const EventEmitter = require('events').EventEmitter
-    , inherits     = require('util').inherits
-    , crypto       = require('crypto')
-    , bl           = require('bl')
+const EventEmitter = require('events').EventEmitter,
+  bl = require('bl')
 
 
-function signBlob (key, blob) {
-  return 'sha1=' + crypto.createHmac('sha1', key).update(blob).digest('hex')
-}
-
-
-function create (options) {
+function create(options) {
   if (typeof options != 'object')
     throw new TypeError('must provide an options object')
 
   if (typeof options.path != 'string')
     throw new TypeError('must provide a \'path\' option')
 
-  if (typeof options.secret != 'string')
-    throw new TypeError('must provide a \'secret\' option')
-
-  // make it an EventEmitter, sort of
+    // make it an EventEmitter, sort of
   handler.__proto__ = EventEmitter.prototype
   EventEmitter.call(handler)
 
   return handler
 
 
-  function handler (req, res, callback) {
+  function handler(req, res, callback) {
     if (req.url.split('?').shift() !== options.path)
       return callback()
 
-    function hasError (msg) {
-      res.writeHead(400, { 'content-type': 'application/json' })
-      res.end(JSON.stringify({ error: msg }))
+    function hasError(msg) {
+      res.writeHead(400, {
+        'content-type': 'application/json'
+      })
+      res.end(JSON.stringify({
+        error: msg
+      }))
 
       var err = new Error(msg)
 
@@ -40,28 +34,21 @@ function create (options) {
       callback(err)
     }
 
-    var sig   = req.headers['x-hub-signature']
-      , event = req.headers['x-github-event']
-      , id    = req.headers['x-github-delivery']
+    var agent = req.headers['user-agent'],
+      event = req.headers['x-coding-event']
 
-    if (!sig)
-      return hasError('No X-Hub-Signature found on request')
+    if (!agent)
+      return hasError('No User-Agent found on request')
 
     if (!event)
-      return hasError('No X-Github-Event found on request')
+      return hasError('No X-Coding-Event found on request')
 
-    if (!id)
-      return hasError('No X-Github-Delivery found on request')
-
-    req.pipe(bl(function (err, data) {
+    req.pipe(bl(function(err, data) {
       if (err) {
         return hasError(err.message)
       }
 
       var obj
-
-      if (sig !== signBlob(options.secret, data))
-        return hasError('X-Hub-Signature does not match blob signature')
 
       try {
         obj = JSON.parse(data.toString())
@@ -69,16 +56,21 @@ function create (options) {
         return hasError(e)
       }
 
-      res.writeHead(200, { 'content-type': 'application/json' })
-      res.end('{"ok":true}')
+      res.writeHead(200, {
+        'content-type': 'application/json'
+      })
+
+      res.end(JSON.stringify({
+        token: options.token,
+        zen: 'Coding！ 让开发更简单'
+      }))
 
       var emitData = {
-          event   : event
-        , id      : id
-        , payload : obj
-        , protocol: req.protocol
-        , host    : req.headers['host']
-        , url     : req.url
+        event: event,
+        payload: obj,
+        protocol: req.protocol,
+        host: req.headers['host'],
+        url: req.url
       }
 
       handler.emit(event, emitData)
@@ -86,6 +78,5 @@ function create (options) {
     }))
   }
 }
-
 
 module.exports = create
