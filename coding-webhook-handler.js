@@ -37,8 +37,8 @@ function create(options) {
     var agent = req.headers['user-agent'],
       event = req.headers['x-coding-event']
 
-    if (!agent)
-      return hasError('No User-Agent found on request')
+    if (agent !== 'Coding.net Hook')
+      return hasError('Invalid User-Agent')
 
     if (!event)
       return hasError('No X-Coding-Event found on request')
@@ -64,7 +64,6 @@ function create(options) {
       })
 
       res.end(JSON.stringify({
-        token: options.token,
         zen: 'Coding！ 让开发更简单'
       }))
 
