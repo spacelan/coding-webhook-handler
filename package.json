@@ -8,9 +8,9 @@
   },
   "keywords": [
     "coding",
-    "webhooks"
+    "webhook"
   ],
-  "author": "Rod Vagg <r@va.gg> (http://r.va.gg), spacelan",
+  "author": "spacelan",
   "repository": {
     "type": "git",
     "url": "https://github.com/spacelan/coding-webhook-handler.git"
